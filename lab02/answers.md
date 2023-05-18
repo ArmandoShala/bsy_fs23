@@ -10,19 +10,19 @@ ubuntu@boot:~$ systemctl status --all
 
 * Why are units organized in slices?
 
-```
+```bash
 To manage resources that belong to a certain group. For example the slice `user.slice` doesn't allow the user to use 100% of the hardware, because it might block the OS from working.
 ```
 
 * What do they represent?
 
-```
+```bash
  A slice unit is a concept for hierarchically managing resources of a group of processes
 ```
 
 * Compare the output of the previous command with the output of ‘pstree’. Can you find the “bash” process in both? What is the difference?
 
-```
+```bash
 pstree seems to show less process and also less information.
 Yes, I can see bash in both outputs.
 ```
@@ -88,7 +88,7 @@ graphical.target
 
 * What is the default target in the VM?
 
-```
+```bash
 graphical.target
 ```
 
@@ -118,19 +118,19 @@ AllowIsolate=yes
 
 * What service unit should be started with that target?
 
-```
+```bash
 Requires=multi-user.target
 ```
 
 * Is it required?
 
-```
+```bash
 yes
 ```
 
 * What’s the difference between ‘requires’ and ‘wants’?
 
-```
+```bash
 Require --> The service needs all required units to be running or else it can't run --> systemd won't start the service
 Wants --> The service doesn't need the wanted services to be running, but it would appreciate it
 ```
@@ -256,7 +256,7 @@ sysinit.target
 
 * What do the listed dependencies mean?
 
-```
+```bash
 This recursively lists units following the Requires=, Requisite=, ConsistsOf=, Wants=, BindsTo= dependencies.
 ```
 
@@ -310,13 +310,13 @@ Yes --> Main PID: 681 (sshd)
 
 * Can you tell on which port it is running from the logs?
 
-```
+```bash
 Yes, on the port 22
 ```
 
 * In order to see the full logs of the service we can use a specific command. How do you see the logs of the ssh.service unit?
 
-```
+```bash
 ubuntu@boot:~$ journalctl -u sshd.service
 -- Logs begin at Fri 2023-03-10 07:55:14 UTC, end at Fri 2023-03-10 10:17:01 UTC. --
 -- No entries --
@@ -396,7 +396,7 @@ Mar 14 18:11:32 bsy-boot-lab systemd[1]: Started Regular background program proc
 Mar 14 18:11:32 bsy-boot-lab cron[13519]: (CRON) INFO (pidfile fd = 3)
 Mar 14 18:11:32 bsy-boot-lab cron[13519]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
 ```
-```
+```bash
 The service was stopped / killed, but the service is auto-restarting by itself. Check the Main PID (it changed)
 ```
 
@@ -422,7 +422,7 @@ Mar 14 18:17:01 bsy-boot-lab CRON[13527]: pam_unix(cron:session): session closed
 Mar 14 18:17:12 bsy-boot-lab systemd[1]: cron.service: Succeeded.
 ```
 
-```
+```bash
 The service is now inactive (dead) and will not be auto-starting
 ```
 
@@ -495,7 +495,7 @@ Mar 14 18:30:12 bsy-boot-lab cron[13681]: (CRON) INFO (pidfile fd = 3)
 Mar 14 18:30:12 bsy-boot-lab cron[13681]: (CRON) INFO (Skipping @reboot jobs -- not system startup)
 ```
 
-```
+```bash
 This shows that it worked, because the service is still running even after sending SIGTERM.
 ```
 
@@ -607,7 +607,7 @@ ubuntu@bsy-boot-lab:/etc/systemd/user$ ll /home/ubuntu/service_started
 
 * How would you extend your service unit file to make it automatically start with the multi-user.target?
 
-```
+```bash
 already done previously
 ```
 
